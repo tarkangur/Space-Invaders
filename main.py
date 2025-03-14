@@ -1,11 +1,14 @@
 import turtle
 from player import Spaceship
-from alliens import *
+from aliens import *
 from scoreboard import *
 import time
 
 
 screen = turtle.Screen()
-screen.screensize(canvwidth=1000, canvheight=600)
+screen.bgpic("images/space.gif")
+screen.setup(600, 800)
+screen.title("Space Invaders")
+
 
 turtle.mainloop()
