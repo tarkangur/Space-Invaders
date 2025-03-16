@@ -1,6 +1,8 @@
 from turtle import Turtle
 
 DISTANCE = 25
+LEFT_LIMIT = -280
+RIGHT_LIMIT = 280
 
 
 class Spaceship(Turtle):
@@ -8,12 +10,15 @@ class Spaceship(Turtle):
         super().__init__()
         self.penup()
         self.goto(0, -270)
+        self.shape("images/spaceship.gif")
 
     def move_left(self):
-        self.backward(DISTANCE)
+        if self.xcor() > LEFT_LIMIT:
+            self.backward(DISTANCE)
 
     def move_right(self):
-        self.forward(DISTANCE)
+        if self.xcor() < RIGHT_LIMIT:
+            self.forward(DISTANCE)
 
     def fire(self):
         pass
