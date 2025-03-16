@@ -6,4 +6,5 @@ class AlienShip(Turtle):
         super().__init__()
         self.penup()
         self.goto(x, y)
-        
+        self.shape("images/alien.gif")
+
