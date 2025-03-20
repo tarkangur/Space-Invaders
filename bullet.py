@@ -4,32 +4,24 @@ BULLET_SPEED = 20
 
 
 class Bullet(Turtle):
-    def __init__(self, x, y, shooter, bullet_list):
+    def __init__(self, x, y, direction):
         super().__init__()
         self.penup()
         self.goto(x, y)
-        self.shape("triangle")
-        self.shapesize(stretch_wid=0.5, stretch_len=1.5)
-
-        if shooter == "player":
-            self.color("white")
-            self.setheading(90)
-        elif shooter == "alien":
-            self.color("green")
-            self.setheading(270)
-
-        self.shooter = shooter
-        self.bullet_list = bullet_list
+        self.shape("square")
+        self.color("white" if direction == 1 else "green")
+        self.shapesize(stretch_wid=1.0, stretch_len=0.2)
+        self.direction = direction
 
     def move(self):
-        if self.shooter == "player":
-            self.goto(self.xcor(), self.ycor() + BULLET_SPEED)
-
-        elif self.shooter == "alien":
-            self.goto(self.xcor(), self.ycor() - BULLET_SPEED)
+        new_y = self.ycor() + (BULLET_SPEED * self.direction)
+        self.goto(self.xcor(), new_y)
 
     def destroy(self):
-        if self in self.bullet_list:
-            self.bullet_list.remove(self)
-        self.hideturtle()
-        del self
+        return self.ycor() > 380 or self.ycor() < -380
+
+    def check_collision(self, objects):
+        for obj in objects:
+            if self.distance(obj) < 15:
+                return obj
+        return None
